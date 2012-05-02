@@ -1,0 +1,17 @@
+bin/
+data/
+db/
+dist/
+logs/
+test-result/
+lib/
+tmp/
+eclipse/
+modules/
+.settings/
+
+.project
+.classpath
+*.iml
+*.ipr
+*.iws
