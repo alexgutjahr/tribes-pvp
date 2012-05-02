@@ -1,0 +1,25 @@
+GET     /                                       Game.index
+
+GET     /login                                  Game.login
+GET     /signup                                 Game.signup
+GET     /logout                                 Security.logout
+
+GET     /home                                   Game.home
+GET     /vault                                  Game.vault
+GET     /armory                                 Game.armory
+GET     /jobs                                   Game.jobs
+GET     /fight                                  Game.fight
+GET     /leaderboard                            Game.leaderboard
+GET     /profile                                Game.profile
+
+GET     /admin                                  module:crud
+
+POST    /login                                  Security.login
+POST    /signup                                 Security.signup
+POST    /trace                                  Users.trace
+
+WS      /news                                   Game.News.listen
+
+GET     /favicon.ico                            404
+GET     /public/                                staticDir:public
+*       /{controller}/{action}                  {controller}.{action}

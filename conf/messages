@@ -1,0 +1,41 @@
+# A
+armory = Armory
+
+# C
+confirmation = Confirmation
+
+# E
+email = Email
+
+# F
+fight = Fight
+
+# H
+home = Home
+
+# J
+jobs = Jobs
+
+# L
+leaderboard = Leaderboard
+login = Login
+
+# N
+name = Name
+
+# P
+password = Password
+
+# S
+signup = Sign up
+
+# U
+username = Name
+
+# V
+validation.mail.exists = %s is already registered!
+validation.required = %s is required!
+vault = Vault
+
+# W
+welcome = Welcome
