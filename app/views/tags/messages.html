@@ -1,0 +1,26 @@
+#{if flash.error}
+    <div class="row">
+        <div class="span12 alert alert-error">
+            <a class="close" data-dismiss="alert" href="#">x</a>
+            <h4>${flash.error}</h4>
+        </div>
+    </div>
+#{/if}
+
+#{if flash.success}
+    <div class="row">
+        <div class="span12 alert alert-success">
+            <a class="close" data-dismiss="alert" href="#">x</a>
+            <h4>${flash.success}</h4>
+        </div>
+    </div>
+#{/if}
+
+#{if flash.info}
+    <div class="row">
+        <div class="span12 alert alert-info">
+            <a class="close" data-dismiss="alert" href="#">x</a>
+            <h4>${flash.info}</h4>
+        </div>
+    </div>
+#{/if}
