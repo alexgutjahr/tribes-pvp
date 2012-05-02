@@ -109,7 +109,6 @@ public class Game extends Controller {
 			while (inbound.isOpen()) {
 				Event event = await(Queues.instance.events.nextEvent());
 
-                Logger.debug("sending " + event.toJSON());
 				if (outbound.isOpen()) {
 					outbound.send(event.toJSON());
 				}
