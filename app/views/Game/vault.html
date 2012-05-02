@@ -1,0 +1,58 @@
+#{extends 'main.html' /}
+#{set title: play.i18n.Messages.get('vault') /}
+
+#{set 'moreScripts'}
+    <script type="text/javascript">
+        $(function() {
+            activate_tab('#nav-vault')
+        })
+    </script>
+#{/set}
+
+<div class="container">
+    <header class="jumbotron subhead">
+        <h1>Vault</h1>
+        <p>You have ${player.skillpoints} skillpoint(s) to spend</p>
+    </header>
+
+    #{messages /}
+
+    <div class="row">
+        <div class="span3">
+            #{form @Users.healthUp()}
+            <button class="btn btn-success btn-large span2" type="submit">
+                <i class="icon-heart icon-white"></i>
+                <h3>Health</h3>
+                <p><i>${player.health}/${player.maxhealth}</i></p>
+            </button>
+            #{/form}
+        </div>
+        <div class="span3">
+            #{form @Users.bloodUp()}
+            <button class="btn btn-success btn-large span2" type="submit">
+                <i class="icon-tint icon-white"></i>
+                <h3>Blood</h3>
+                <p><i>${player.blood}/${player.maxblood}</i></p>
+            </button>
+            #{/form}
+        </div>
+        <div class="span3">
+            #{form @Users.rageUp()}
+            <button class="btn btn-success btn-large span2" type="submit">
+                <i class="icon-fire icon-white"></i>
+                <h3>Rage</h3>
+                <p><i>${player.rage}/${player.maxrage}</i></p>
+            </button>
+            #{/form}
+        </div>
+        <div class="span3">
+            #{form @Users.sightUp()}
+            <button class="btn btn-success btn-large span2" type="submit">
+                <i class="icon-screenshot icon-white"></i>
+                <h3>Sight</h3>
+                <p><i>${player.sight}</i></p>
+            </button>
+            #{/form}
+        </div>
+    </div>
+</div>

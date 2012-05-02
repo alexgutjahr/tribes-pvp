@@ -1,0 +1,44 @@
+#{extends 'main.html' /}
+#{set title: 'Map' /}
+
+*(
+    This file is currently not in use, but might serve as a reference for further
+    (battle) improvements.
+}*
+
+#{set 'moreScripts'}
+    <script type="text/javascript" src="http://maps.googleapis.com/maps/api/js?sensor=false"></script>
+
+    <script type="text/javascript">
+        $(function() {
+            var location = new google.maps.LatLng(-34.397, 150.644)
+
+            var opts = {
+                zoom: 8,
+                center: location,
+                mapTypeId: google.maps.MapTypeId.ROADMAP
+            }
+
+            var map = new google.maps.Map(document.getElementById("map_canvas"), opts)
+
+            var socket = new WebSocket('@@{Game.Monitor.listen}')
+
+            socket.onmessage = function(message) {
+                var update = $.parseJSON(message.data)
+                var marker = new google.maps.Marker({
+                    position: new google.maps.LatLng(update.latitude, update.longitude),
+                    map: map,
+                    title: update.player
+                })
+
+                google.maps.event.addListener(marker, "click", function(event) {
+                    var info = new google.maps.InfoWindow({})
+                    info.setContent("<b>" + update.player + "</b>")
+                    info.open(map, this)
+                })
+            }
+        })
+    </script>
+#{/set}
+
+<div id="map_canvas" style="width: 90%; height: 300px;"></div>

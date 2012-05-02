@@ -1,0 +1,48 @@
+#{extends 'main.html' /}
+#{set title: play.i18n.Messages.get('jobs') /}
+
+#{set 'moreScripts'}
+    <script type="text/javascript">
+        $(function() {
+            activate_tab('#nav-jobs')
+        })
+    </script>
+#{/set}
+
+<div class="container">
+    <header class="jumbotron subhead">
+        <h1>Jobs</h1>
+        <p>Take on different jobs to gain gold and experience!</p>
+    </header>
+
+    #{messages /}
+
+    #{if jobs}
+        #{list items: jobs, as: 'job'}
+            <div class="row">
+                #{form @Jobs.perform()}
+                    <input type="hidden" name="job.id" value="${job?.id}"/>
+                    <div class="span4">
+                        <h2>${job.name}</h2>
+                        <p>${job.description}</p>
+                        <p>
+                            Requires
+                            <a href="#">
+                                <i class="icon-tint"></i>
+                                ${job.blood}
+                            </a>
+                            and provides
+                            <a href="#">
+                                <i class="icon-star"></i>
+                                ${job.xp}
+                            </a>
+                        </p>
+                    </div>
+                    <div class="offset4">
+                        <button type="submit" class="btn btn-warning btn-large">accept</button>
+                    </div>
+                #{/form}
+            </div>
+        #{/list}
+    #{/if}
+</div>

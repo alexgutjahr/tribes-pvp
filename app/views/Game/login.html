@@ -1,0 +1,37 @@
+#{extends 'main.html' /}
+#{set title: play.i18n.Messages.get('login') /}
+
+<div class="container">
+
+    #{messages /}
+
+    <div class="row">
+        <div class="offset4">
+            <h2>&{'login'}</h2>
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="offset4 span4">
+            #{form @Security.login(), class: 'well'}
+                <div>
+                    <label>
+                        <strong>&{'name'}</strong>
+                        <input type="text" class="input-xlarge" name="user.name" value="${flash.name}"/>
+                        <span class="text-error">#{error 'name' /}</span>
+                    </label>
+                </div>
+                <div>
+                    <label>
+                        <strong>&{'password'}</strong>
+                        <input type="password" class="input-xlarge" name="user.password" value=""/>
+                        <span class="text-error">#{error 'password' /}</span>
+                    </label>
+                </div>
+            <div>
+                <button class="btn btn-success btn-large" type="submit">Enter</button>
+            </div>
+        #{/form}
+    </div>
+  </div>
+</div>

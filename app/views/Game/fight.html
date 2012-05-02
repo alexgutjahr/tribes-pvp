@@ -1,0 +1,49 @@
+#{extends 'main.html' /}
+#{set title: play.i18n.Messages.get('fight') /}
+
+#{set 'moreScripts'}
+    <script type="text/javascript">
+        $(function() {
+            activate_tab('#nav-fight')
+        })
+    </script>
+#{/set}
+
+<div class="container">
+    <header class="jumbotron subhead">
+        <h1>Fight</h1>
+        <p>You can see enemies at the distance of ${player.sight} kilometres!</p>
+    </header>
+
+    #{messages /}
+
+    #{if enemies}
+        #{list items: enemies, as: 'enemy'}
+            <div class="row">
+                #{form @Users.attack()}
+                    <input type="hidden" name="user.id" value="${enemy?.id}"/>
+                    <div class="span4 well">
+                        <button type="submit" class="btn btn-danger btn-large">
+                            <i class="icon-user icon-white"></i>
+                            ${enemy.name}
+                        </button>
+                        Distance: ${player.location.distanceTo(enemy.location).round(2)} km
+                        <p>
+                        <div class="progress progress-success progress-striped">
+                            <div class="bar"
+                                 style="width: ${enemy.health / enemy.maxhealth * 100}%;"></div>
+                        </div>
+                        </p>
+                    </div>
+                #{/form}
+            </div>
+        #{/list}
+    #{/if}
+    #{else}
+        <div class="row">
+            <div class="span4">
+                <h3>No enemies near.</h3>
+            </div>
+        </div>
+    #{/else}
+</div>

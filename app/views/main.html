@@ -1,0 +1,141 @@
+<!DOCTYPE html>
+
+<html>
+    <head>
+        <title>#{get 'title' /}</title>
+        <meta charset="${_response_encoding}">
+
+        #{stylesheet 'tribes.css' /}
+        #{stylesheet 'bootstrap.css' /}
+        #{stylesheet 'bootstrap-responsive.css' /}
+        #{stylesheet 'docs.css' /}
+
+        <style type="text/css">
+            body {
+                padding-top:    80px;
+                padding-bottom: 40px;
+            }
+        </style>
+
+        #{get 'moreStyles' /}
+        
+        <link rel="shortcut icon" type="image/png" href="@{'/public/images/favicon.png'}">
+
+        #{script 'jquery-1.7.2.min.js' /}
+        #{script 'bootstrap.min.js' /}
+        #{script 'bootstrap-collapse.js' /}
+        #{script 'bootstrap-tab.js' /}
+        #{script 'tribes-location.js' /}
+
+        #{if player}
+            <script type="text/javascript">
+                $(function() {
+                    $('#player-health,#player-rage,#player-blood').popover({
+                        placement: 'bottom'
+                    }, 'toggle')
+                })
+            </script>
+
+            <script type="text/javascript">
+                var routes = {
+                    update: #{jsAction @Users.trace() /}
+                }
+
+                $(function() {
+                    if (navigator.geolocation) {
+                        setInterval("track_position()", 5000)
+                    } else {
+                        alert('geolocation not available!')
+                    }
+                })
+            </script>
+        #{/if}
+
+        #{get 'moreScripts' /}
+    </head>
+    <body>
+        #{if player}
+            <div class="navbar navbar-fixed-top">
+                <div class="navbar-inner">
+                    <div class="container-fluid">
+                        <a class="btn btn-navbar" data-toggle="collapse" data-target=".nav-collapse">
+                            <span class="icon-bar"></span>
+                            <span class="icon-bar"></span>
+                            <span class="icon-bar"></span>
+                        </a>
+                        <a class="brand" href="#">Tribes</a>
+                        <div class="btn-group pull-right">
+                            <a class="btn dropdown-toggle" data-toggle="dropdown" href="#">
+                                <i class="icon-user"></i> ${session.player}
+                                <span class="caret"></span>
+                            </a>
+                            <ul class="dropdown-menu">
+                                <li><a href="@{Game.profile()}">Profile</a></li>
+                                <li class="divider"></li>
+                                <li><a href="@{Security.logout()}">Sign Out</a></li>
+                            </ul>
+                        </div>
+                        <div class="nav-collapse">
+                            <ul class="nav">
+                                <li id="nav-home"><a href="@{Game.home()}">Home</a></li>
+                                <li id="nav-vault"><a href="@{Game.vault()}">Vault</a></li>
+                                <li id="nav-armory"><a href="@{Game.armory()}">Armory</a></li>
+                                <li id="nav-jobs"><a href="@{Game.jobs()}">Jobs</a></li>
+                                <li id="nav-fight"><a href="@{Game.fight()}">Fight</a></li>
+                                <li id="nav-tribe"><a href="#">My Tribe</a></li>
+                                <li id="nav-leaderboard"><a href="@{Game.leaderboard()}">Leaderboard</a></li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="subnav subnav-fixed">
+                <ul class="nav nav-pills">
+                    <li>
+                        <a id="player-health" href="#" data-content="Your current health. Once decreased to zero, you are unable to fight." rel="popover" data-original-title="Health">
+                            <i class="icon-heart"></i>
+                            Health (${player.health}/${player.maxhealth})
+                        </a>
+                    </li>
+                    <li>
+                        <a id="player-rage" href="#" data-content="You need rage to fight other players." rel="popover" data-original-title="Rage">
+                            <i class="icon-fire"></i>
+                            Rage (${player.rage}/${player.maxrage})
+                        </a>
+                    </li>
+                    <li>
+                        <a id="player-blood" href="#" data-content="Blood is required to take on jobs; the more blood, the more jobs." rel="popover" data-original-title="Blood">
+                        <i class="icon-tint"></i>
+                        Blood (${player.blood}/${player.maxblood})
+                        </a>
+                    </li>
+                    <li>
+                        <a id="player-xp" href="#">
+                            <i class="icon-star"></i>
+                            Experience (${player.xp}/${player.threshold})
+                        </a>
+                    </li>
+                    <li>
+                        <a id="player-sight" href="#">
+                            <i class="icon-screenshot"></i>
+                            Sight ${player.sight}
+                        </a>
+                    </li>
+                    <li>
+                        <a href="#">
+                            <i class="icon-asterisk"></i>
+                            Skillpoints ${player.skillpoints}
+                        </a>
+                    </li>
+                    <li>
+                        <a href="#">
+                            <i class="icon-leaf"></i>
+                            Level ${player.level}
+                        </a>
+                    </li>
+                </ul>
+            </div>
+        #{/if}
+        #{doLayout /}
+    </body>
+</html>

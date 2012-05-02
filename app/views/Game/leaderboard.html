@@ -1,0 +1,49 @@
+#{extends 'main.html' /}
+#{set title: play.i18n.Messages.get('leaderboard') /}
+
+#{set 'moreScripts'}
+    <script type="text/javascript">
+        $(function() {
+            activate_tab('#nav-leaderboard')
+        })
+    </script>
+#{/set}
+
+<div class="container">
+    <header class="jumbotron subhead">
+        <h1>Leaderboard</h1>
+        <p>Who's hot, who's not?!</p>
+    </header>
+
+    #{if players}
+            <div class="row">
+                <div class="span4">
+                <table class="table table-stripped">
+                    <thead>
+                        <tr>
+                            <th>Player</th>
+                            <th>Level</th>
+                            <th>Last login</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                    #{list items: players, as: 'current'}
+                        <tr>
+                            <td>${current.name}</td>
+                            <td>${current.level}</td>
+                            <td>${current.lastlogin.format('dd.MM.yyyy HH:mm')}</td>
+                        </tr>
+                    #{/list}
+                    </tbody>
+                </table>
+                </div>
+            </div>
+    #{/if}
+    #{else}
+        <div class="row">
+            <div class="span4">
+                <h3>No enemies near.</h3>
+            </div>
+        </div>
+    #{/else}
+</div>

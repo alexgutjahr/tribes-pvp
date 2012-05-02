@@ -1,0 +1,29 @@
+#{extends 'main.html' /}
+#{set title: play.i18n.Messages.get('home') /}
+
+#{set 'moreScripts'}
+    <script type="text/javascript">
+        $(function() {
+            activate_tab('#nav-home')
+
+            var socket = new WebSocket('@@{Game.News.listen}')
+
+            socket.onmessage = function(message) {
+                var news = $.parseJSON(message.data)
+                $('#news').append(news.timestamp + ": " + news.offender + " attacks " + news.defender + "!<br/>")
+            }
+        })
+    </script>
+#{/set}
+
+<div class="container">
+    <header class="jumbotron subhead">
+        <h1>Howdy ${player.name},</h1>
+        <p>check out the news or spend some time killing enemies!</p>
+    </header>
+    <div class="row">
+        <div class="span4">
+            <div id="news"></div>
+        </div>
+    </div>
+</div>

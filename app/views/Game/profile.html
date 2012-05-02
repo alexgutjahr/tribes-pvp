@@ -1,0 +1,42 @@
+#{extends 'main.html' /}
+#{set title: play.i18n.Messages.get('profile') /}
+
+#{set 'moreScripts'}
+    <script type="text/javascript">
+        $(function() {
+            clear_tabs()
+        })
+    </script>
+#{/set}
+
+<div class="container">
+    <header class="jumbotron subhead">
+        <h1>${player.name}</h1>
+        #{if json}
+            <h3>${json.get('name').getAsString()}</h3>
+        #{/if}
+
+        #{if !player.isFacebookConnected()}
+            <a href="@{Facebook.connect()}">
+                <img src="https://d3pvklq8xnxxh2.cloudfront.net/img/connect_light_medium_long.5f6391abb4ae.gif">
+            </a>
+        #{/if}
+    </header>
+
+    #{if json}
+        <div class="row">
+            <div class="span1 thumbnail">
+                <img src="${image}">
+            </div>
+        </div>
+    #{/if}
+
+    <div class="row">
+        <div class="span4">
+            <h3>Experience (${player.xp} / ${player.threshold})</h3>
+            <div class="progress progress-striped progress-warning">
+                <div class="bar" style="width: ${player.xp / player.threshold * 100}%;"></div>
+            </div>
+        </div>
+    </div>
+</div>
