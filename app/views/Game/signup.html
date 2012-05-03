@@ -2,47 +2,34 @@
 #{set title: play.i18n.Messages.get('signup') /}
 
 <div class="container">
+    <div class="row" id="signup-form">
+        <div>
+            #{form @Security.signup()}
 
-    <div class="row">
-        <div class="offset4">
-            <h2>&{'signup'}</h2>
-        </div>
-    </div>
+                <h5>&{'signup'} and join the battle!</h5>
 
-    <div class="row">
-        <div class="offset4 span4">
-            #{form @Security.signup(), class: 'well'}
-                <div>
-                    <label>
-                        <strong>&{'name'}</strong>
-                        <input type="text" class="input-xlarge" name="name" value="${flash.name}"/>
-                        <span class="text-error">#{error 'name' /}</span>
-                    </label>
-                </div>
-                <div>
-                    <label>
-                        <strong>&{'email'}</strong>
-                        <input type="text" class="input-xlarge" name="email" value="${flash.email}"/>
-                        <span class="text-error">#{error 'email' /}</span>
-                    </label>
-                </div>
-                <div>
-                    <label>
-                        <strong>&{'password'}</strong>
-                        <input type="password" class="input-xlarge" name="password" value="${flash.password}"/>
-                        <span class="text-error">#{error 'password' /}</span>
-                    </label>
-                </div>
-                <div>
-                    <label>
-                        <strong>&{'confirmation'}</strong>
-                        <input type="password" class="input-xlarge" name="confirmation" value="${flash.confirmation}"/>
-                        <span class="text-error">#{error 'confirmation' /}</span>
-                    </label>
-                </div>
-                <div>
-                    <button class="btn btn-success btn-large" type="submit">Create account</button>
-                </div>
+                <label>&{'name'}
+                    <span class="small">choose your player name</span>
+                </label>
+                <input type="text" class="input-xlarge" name="name" value="${flash.name}"/>
+
+                <label>&{'email'}
+                    <span class="small">add a valid address</span>
+                </label>
+                <input type="text" class="input-xlarge" name="email" value="${flash.email}"/>
+
+                <label>&{'password'}
+                    <span class="small">secure your account</span>
+                </label>
+                <input type="password" class="input-xlarge" name="password" value="${flash.password}"/>
+
+                <label>&{'confirmation'}
+                    <span class="small">and confirm your password</span>
+                </label>
+                <input type="password" class="input-xlarge" name="confirmation" value="${flash.confirmation}"/>
+
+                <button class="btn btn-danger btn-large" type="submit">Create account</button>
+                <div class="spacer"></div>
             #{/form}
         </div>
     </div>
