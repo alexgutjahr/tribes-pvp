@@ -41,11 +41,13 @@
                     update: #{jsAction @Users.trace() /}
                 }
 
+                console.log('trace-route is ' + routes.update())
+
                 $(function() {
                     if (navigator.geolocation) {
                         setInterval("track_position()", 5000)
                     } else {
-                        alert('geolocation not available!')
+                        console.log('geolocation not available!')
                     }
                 })
             </script>

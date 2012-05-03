@@ -16,6 +16,8 @@ track_position = function() {
                 enableHighAccuracy: true, maximumAge: 600000
             }
         )
+    } else {
+        console.log('geolocation not available!')
     }
 }
 

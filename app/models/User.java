@@ -9,6 +9,7 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 
 import play.Logger;
+import play.Play;
 import play.db.jpa.GenericModel;
 import play.libs.Crypto;
 
@@ -114,12 +115,12 @@ public class User extends GenericModel {
 
         user.role = Role.PLAYER;
 		
-		user.sight = Double.valueOf("10.0");
-		user.maxblood = Long.valueOf(5);
+		user.sight = Double.valueOf(Play.configuration.getProperty("user.sight.initial"));
+		user.maxblood = Long.valueOf(Play.configuration.getProperty("user.blood.initial"));
 		user.blood = user.maxblood;
-		user.maxrage = Long.valueOf(3);
+		user.maxrage = Long.valueOf(Play.configuration.getProperty("user.rage.initial"));
 		user.rage = user.maxrage;
-		user.maxhealth = Long.valueOf(100);
+		user.maxhealth = Long.valueOf(Play.configuration.getProperty("user.health.initial"));
 		user.health = user.maxhealth;
 		user.gold = Long.valueOf(100);
 		user.threshold = Long.valueOf(5);
@@ -137,9 +138,9 @@ public class User extends GenericModel {
         user.bloodJobRunning = Boolean.FALSE;
         user.healthJobRunning = Boolean.FALSE;
 
-        user.rageCooldown = Integer.valueOf(300);
-        user.bloodCooldown = Integer.valueOf(300);
-        user.healthCooldown = Integer.valueOf(300);
+        user.rageCooldown = Integer.valueOf(Play.configuration.getProperty("user.rage.cooldown"));
+        user.bloodCooldown = Integer.valueOf(Play.configuration.getProperty("user.blood.cooldown"));
+        user.healthCooldown = Integer.valueOf(Play.configuration.getProperty("user.health.cooldown"));
 		
 		return user;
 	}

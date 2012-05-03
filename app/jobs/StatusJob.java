@@ -27,4 +27,9 @@ public abstract class StatusJob extends Job {
     protected abstract boolean needsHeal(User user);
 
     protected abstract void heal(User user);
+
+    @Override
+    public final String toString() {
+        return String.format("%s -> %s", this.getClass().getSimpleName(), id);
+    }
 }
