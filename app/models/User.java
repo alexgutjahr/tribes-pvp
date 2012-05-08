@@ -17,7 +17,7 @@ import ext.Formula;
 /**
  * @author <a href="mailto:alexander.hanschke@gmail.com">Alexander Hanschke</a>
  */
-@Table(name="\"User\"")
+@Table(name="Player")
 @Entity
 public class User extends GenericModel {
 	
