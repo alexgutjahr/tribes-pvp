@@ -128,18 +128,18 @@ public class User extends GenericModel {
 		user.level = Long.valueOf(1);
 		user.skillpoints = Long.valueOf(0);
 
-        user.lastlogin = new Date();
+        user.lastlogin =  new Date();
         user.firstlogin = new Date();
 
-        user.logout = Boolean.FALSE;
+        user.logout =    Boolean.FALSE;
         user.suspended = Boolean.FALSE;
 
-        user.rageJobRunning = Boolean.FALSE;
-        user.bloodJobRunning = Boolean.FALSE;
+        user.rageJobRunning =   Boolean.FALSE;
+        user.bloodJobRunning =  Boolean.FALSE;
         user.healthJobRunning = Boolean.FALSE;
 
-        user.rageCooldown = Integer.valueOf(Play.configuration.getProperty("user.rage.cooldown"));
-        user.bloodCooldown = Integer.valueOf(Play.configuration.getProperty("user.blood.cooldown"));
+        user.rageCooldown =   Integer.valueOf(Play.configuration.getProperty("user.rage.cooldown"));
+        user.bloodCooldown =  Integer.valueOf(Play.configuration.getProperty("user.blood.cooldown"));
         user.healthCooldown = Integer.valueOf(Play.configuration.getProperty("user.health.cooldown"));
 		
 		return user;
