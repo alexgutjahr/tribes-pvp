@@ -3,10 +3,7 @@ package models;
 import java.util.Date;
 import java.util.List;
 
-import javax.persistence.Embedded;
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.Id;
+import javax.persistence.*;
 
 import play.Logger;
 import play.Play;
@@ -20,6 +17,7 @@ import ext.Formula;
 /**
  * @author <a href="mailto:alexander.hanschke@gmail.com">Alexander Hanschke</a>
  */
+@Table(name="\"User\"")
 @Entity
 public class User extends GenericModel {
 	
