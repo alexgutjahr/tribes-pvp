@@ -2,9 +2,11 @@ package models;
 
 import java.util.Date;
 import java.util.List;
+import java.util.Set;
 
 import javax.persistence.*;
 
+import controllers.Game;
 import play.Logger;
 import play.Play;
 import play.db.jpa.GenericModel;
@@ -25,7 +27,6 @@ public class User extends GenericModel {
 	@Expose
 	@GeneratedValue
 	public Long id;
-	public String token;
 
     public Species species;
     public Role role;
@@ -65,6 +66,9 @@ public class User extends GenericModel {
 	
 	@Embedded
 	public Location location = Location.fromRadians(0.0, 0.0);
+
+    @OneToMany(mappedBy = "user", cascade = CascadeType.ALL)
+    public Set<Authentication> authentications;
 
 	public List<User> nearby() {
 		Location[] locations = location.boundingCoordinates(sight);
@@ -176,7 +180,7 @@ public class User extends GenericModel {
 	}
 
     public boolean isFacebookConnected() {
-        return token != null;
+        return Authentication.find("byUser", Game.player()).first() != null;
     }
 
     public boolean hasSkillpoints() {
@@ -193,6 +197,16 @@ public class User extends GenericModel {
 
     public boolean needsRage() {
         return this.rage < this.maxrage;
+    }
+
+    public void addAuthentication(AuthProvider provider, String token) {
+        Authentication auth = new Authentication();
+        auth.user = this;
+        auth.provider = provider;
+        auth.token = token;
+
+        this.authentications.add(auth);
+        this.save();
     }
 	
 

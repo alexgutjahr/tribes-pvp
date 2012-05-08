@@ -1,5 +1,6 @@
 package controllers;
 
+import models.AuthProvider;
 import models.User;
 import play.Logger;
 import play.Play;
@@ -39,7 +40,7 @@ public class Facebook extends Controller {
         if (OAuth2.isCodeResponse()) {
             OAuth2.Response response = FACEBOOK.retrieveAccessToken(authURL());
             User player = Game.player();
-            player.token = response.accessToken;
+            player.addAuthentication(AuthProvider.FACEBOOK, response.accessToken);
             player.save();
 
             Game.profile();

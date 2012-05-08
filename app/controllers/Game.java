@@ -2,6 +2,7 @@ package controllers;
 
 import com.google.gson.JsonObject;
 import events.Event;
+import models.Authentication;
 import models.Job;
 import models.Queues;
 import models.User;
@@ -91,7 +92,8 @@ public class Game extends Controller {
 
     public static void profile() {
         if (Game.player().isFacebookConnected()) {
-            JsonObject json = WS.url("https://graph.facebook.com/me?access_token=%s", WS.encode(Game.player().token)).get().getJson().getAsJsonObject();
+            Authentication auth = Authentication.find("byUser", Game.player()).first();
+            JsonObject json = WS.url("https://graph.facebook.com/me?access_token=%s", WS.encode(auth.token)).get().getJson().getAsJsonObject();
             String image = "http://graph.facebook.com/" + json.get("username").getAsString() + "/picture";
             render(json, image);
         }
