@@ -88,7 +88,8 @@ public class User extends GenericModel {
     }
 	
 	public static boolean isRegistered(String mail) {
-		return find("byMail", mail).first() != null;
+		return null !=
+            find("byMail", mail).first();
 	}
 	
 	public static boolean authenticate(String name, String password) {
@@ -97,11 +98,13 @@ public class User extends GenericModel {
 	}
 	
 	public static boolean nameExists(String name) {
-		return find("byName", name).first() != null;
+		return null !=
+            find("byName", name).first();
 	}
 	
 	public static boolean mailExists(String mail) {
-		return find("byEmail", mail).first() != null;
+		return null !=
+            find("byEmail", mail).first();
 	}
 	
 	@Override
@@ -180,7 +183,7 @@ public class User extends GenericModel {
 	}
 
     public boolean isFacebookConnected() {
-        return Authentication.find("byUser", Game.player()).first() != null;
+        return Authentication.find("byUserAndProvider", Game.player(), AuthProvider.FACEBOOK).first() != null;
     }
 
     public boolean hasSkillpoints() {

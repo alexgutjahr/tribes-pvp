@@ -63,3 +63,18 @@
     text-shadow: 1px 1px 1px #770303;
     top: -26px;
 }
+
+#locations {
+    list-style: none;
+    width: 250px;
+    float: left;
+}
+
+#locations li {
+    padding: 10px;
+    width: 800px;
+    float: left;
+    position: relative;
+    z-index: 20;
+}
+

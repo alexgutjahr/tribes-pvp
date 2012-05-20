@@ -35,3 +35,9 @@ clear_tabs = function() {
     $('#nav-tribe').removeClass('active')
     $('#nav-leaderboard').removeClass('active')
 }
+
+function log(message) {
+    try {
+        top.console.log(message);
+    } catch (error) {}
+}

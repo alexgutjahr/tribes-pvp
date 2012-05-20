@@ -2,9 +2,77 @@
 #{set title: play.i18n.Messages.get('fight') /}
 
 #{set 'moreScripts'}
+
+    <script type="text/javascript" src="http://maps.googleapis.com/maps/api/js?sensor=false"></script>
+
     <script type="text/javascript">
         $(function() {
+
             activate_tab('#nav-fight')
+
+            var berlin = new google.maps.LatLng(-34.397, 150.644),
+                pointToMoveTo,
+                first = true,
+                curMarker = new google.maps.Marker({}),
+                $el;
+
+            var myOptions = {
+                zoom: 13,
+                center: berlin,
+                mapTypeId: google.maps.MapTypeId.ROADMAP
+            };
+
+            var map = new google.maps.Map(document.getElementById("map_canvas"), myOptions);
+
+            $(".enemy").mouseenter(function() {
+
+                console.log('hovered...')
+
+                $el = $(this);
+
+                if (!$el.hasClass("hover")) {
+                    $(".enemy").removeClass("hover");
+                    $el.addClass("hover");
+
+                    if (!first) {
+
+                    // Clear current marker
+                    curMarker.setMap();
+
+                    // Set zoom back to Chicago level
+                    // map.setZoom(15);
+                    }
+
+                    // Move (pan) map to new location
+                    pointToMoveTo = new google.maps.LatLng($el.attr("data-geo-lat"), $el.attr("data-geo-long"));
+                    map.panTo(pointToMoveTo);
+
+                    // Add new marker
+                    curMarker = new google.maps.Marker({
+                        position: pointToMoveTo,
+                        map: map,
+                        icon: "/public/img/shooting.png"
+                    });
+
+                    // On click, zoom map
+                    google.maps.event.addListener(curMarker, 'click', function() {
+                        map.setZoom(14);
+                    });
+
+                // Fill more info area
+                $("#more-info")
+                    .find("h2")
+                    .html($el.find("h3").html())
+                    .end()
+                    .find("p")
+                    .html($el.find(".longdesc").html());
+
+                // No longer the first time through (re: marker clearing)
+                first = false;
+            }
+
+        });
+
         })
     </script>
 #{/set}
@@ -22,7 +90,7 @@
             <div class="row">
                 #{form @Users.attack()}
                     <input type="hidden" name="user.id" value="${enemy?.id}"/>
-                    <div class="span4 well">
+                    <div class="span4 well enemy" data-geo-lat="${enemy.location.latitude}" data-geo-long="${enemy.location.longitude}">
                         <button type="submit" class="btn btn-danger btn-large">
                             <i class="icon-user icon-white"></i>
                             ${enemy.name}
@@ -33,7 +101,6 @@
                             <div class="bar"
                                  style="width: ${enemy.health / enemy.maxhealth * 100}%;"></div>
                         </div>
-                        </p>
                     </div>
                 #{/form}
             </div>
@@ -46,4 +113,11 @@
             </div>
         </div>
     #{/else}
+
+    <div class="row">
+        <div class="offset2 span8">
+            <div id="map_canvas" style="height: 400px;"></div>
+        </div>
+    </div>
+
 </div>

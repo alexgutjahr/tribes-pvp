@@ -1,0 +1,38 @@
+#{extends 'main.html' /}
+#{set title: play.i18n.Messages.get('tribe') /}
+
+#{set 'moreScripts'}
+    <script type="text/javascript">
+        $(function() {
+            activate_tab('#nav-tribe')
+
+            $('#comment-btn').click(function() {
+                $('#comments').prepend(
+                    '<blockquote><p>' + $('#comment').val() + '</p><small>${player.name} @ ${new Date().format('dd.MM.yyyy HH:mm:ss')}</small></blockquote>'
+                )
+            })
+        })
+    </script>
+#{/set}
+
+<div class="container">
+    <header class="jumbotron subhead">
+        <h1>My Tribe</h1>
+        <p>You have ${player.skillpoints} skillpoint(s) to spend</p>
+    </header>
+
+    #{messages /}
+
+    <div class="row">
+        <div class="span5">
+            <input type="text" id="comment"/>
+            <button id="comment-btn" class="btn btn-primary">Submit</button>
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="span5" id="comments"></div>
+    </div>
+
+
+</div>

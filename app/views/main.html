@@ -29,26 +29,26 @@
 
         #{if player}
             <script type="text/javascript">
-                $(function() {
-                    $('#player-health,#player-rage,#player-blood').popover({
-                        placement: 'bottom'
-                    }, 'toggle')
-                })
-            </script>
 
-            <script type="text/javascript">
                 var routes = {
                     update: #{jsAction @Users.trace() /}
                 }
 
-                console.log('trace-route is ' + routes.update())
-
                 $(function() {
+
+                    $('#player-health,#player-rage,#player-blood').popover({
+                        placement: 'bottom'
+                    }, 'toggle')
+
                     if (navigator.geolocation) {
                         setInterval("track_position()", 5000)
                     } else {
                         console.log('geolocation not available!')
                     }
+
+                    setInterval(function() {
+                        $('#player-stats').load('@{Game.fight()} #player-stats')
+                    }, 1000)
                 })
             </script>
         #{/if}
@@ -84,14 +84,14 @@
                                 <li id="nav-armory"><a href="@{Game.armory()}">Armory</a></li>
                                 <li id="nav-jobs"><a href="@{Game.jobs()}">Jobs</a></li>
                                 <li id="nav-fight"><a href="@{Game.fight()}">Fight</a></li>
-                                <li id="nav-tribe"><a href="#">My Tribe</a></li>
+                                <li id="nav-tribe"><a href="@{Game.tribe()}">My Tribe</a></li>
                                 <li id="nav-leaderboard"><a href="@{Game.leaderboard()}">Leaderboard</a></li>
                             </ul>
                         </div>
                     </div>
                 </div>
             </div>
-            <div class="subnav subnav-fixed">
+            <div class="subnav subnav-fixed" id="player-stats">
                 <ul class="nav nav-pills">
                     <li>
                         <a id="player-health" href="#" data-content="Your current health. Once decreased to zero, you are unable to fight." rel="popover" data-original-title="Health">
@@ -124,6 +124,12 @@
                         </a>
                     </li>
                     <li>
+                        <a id="player-gold" href="#">
+                            <i class="icon-shopping-cart"></i>
+                            Gold ${player.gold}
+                        </a>
+                    </li>
+                    <li>
                         <a href="#">
                             <i class="icon-asterisk"></i>
                             Skillpoints ${player.skillpoints}
@@ -134,6 +140,9 @@
                             <i class="icon-leaf"></i>
                             Level ${player.level}
                         </a>
+                    </li>
+                    <li>
+                        <a href="#"><span>Server time: ${new Date().format("dd.MM.yyyy HH:mm:ss")}</span></a>
                     </li>
                 </ul>
             </div>

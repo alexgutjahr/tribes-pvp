@@ -9,6 +9,7 @@ GET     /vault                                  Game.vault
 GET     /armory                                 Game.armory
 GET     /jobs                                   Game.jobs
 GET     /fight                                  Game.fight
+GET     /tribe                                  Game.tribe
 GET     /leaderboard                            Game.leaderboard
 GET     /profile                                Game.profile
 
